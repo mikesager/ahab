@@ -5,14 +5,13 @@ import os
 from setuptools import setup
 import subprocess
 
-
 def version():
     from_file, from_git = None, None
     receipt = 'ahab/version/VERSION'
     default = datetime.utcnow().strftime('%Y%m%d') + '+unversioned'
     if os.path.exists('.git'):
         try:
-            txt = subprocess.check_output(['git', 'describe', '--tags'])
+            txt = subprocess.check_output(['git', 'describe', '--tags'], text=True)
             from_git = txt.strip().replace('-', '.', 1).replace('-g', '+', 1)
         except subprocess.CalledProcessError:
             pass
